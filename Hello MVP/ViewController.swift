@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.dataSource = self
-        activityIndicator?.hidesWhenStopped = true
+        activityIndicator.hidesWhenStopped = true
         
         userPresenter.attachView(view: self)
         userPresenter.getUsers()
@@ -48,11 +48,11 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UserView {
     func startLoading() {
-        activityIndicator?.startAnimating()
+        activityIndicator.startAnimating()
     }
     
     func finishLoading() {
-        activityIndicator?.stopAnimating()
+        activityIndicator.stopAnimating()
     }
     
     func setUsers(users: [UserViewData]) {

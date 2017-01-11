@@ -21,7 +21,7 @@ class UserServiceMock: UserService {
     }
 }
 
-class UserViewMock: NSObject, UserView{
+class UserViewMock: NSObject, UserView {
     var setUsersCalled = false
     var setEmptyUsersCalled = false
     
@@ -33,35 +33,41 @@ class UserViewMock: NSObject, UserView{
         setEmptyUsersCalled = true
     }
     
-    func startLoading() {
-    }
+    func startLoading() {}
     
-    func finishLoading() {
-    }
+    func finishLoading() {}
 }
 
 class UserPresenterTest: XCTestCase {
+    let emptyUsersServiceMock = UserServiceMock(users: [User]())
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    let towUsersServiceMock = UserServiceMock(
+        users:[User(firstName: "firstname1", lastName: "lastname1", email: "first@test.com",  age: 30),
+               User(firstName: "firstname2", lastName: "lastname2", email: "second@test.com", age: 24)])
+    
+    func testShouldSetUsers() {
+        //given
+        let userViewMock = UserViewMock()
+        let userPresenterUnderTest = UserPresenter(userService: towUsersServiceMock)
+        userPresenterUnderTest.attachView(view: userViewMock)
+        
+        //when
+        userPresenterUnderTest.getUsers()
+        
+        //verify
+        XCTAssertTrue(userViewMock.setUsersCalled)
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    func testShouldSetEmptyIfNoUserAvailable() {
+        //given
+        let userViewMock = UserViewMock()
+        let userPresenterUnderTest = UserPresenter(userService: emptyUsersServiceMock)
+        userPresenterUnderTest.attachView(view: userViewMock)
+        
+        //when
+        userPresenterUnderTest.getUsers()
+        
+        //verify
+        XCTAssertTrue(userViewMock.setEmptyUsersCalled)
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

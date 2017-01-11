@@ -99,8 +99,8 @@
 		7BF60D7F1E24F6AE00716376 /* Hello MVPTests */ = {
 			isa = PBXGroup;
 			children = (
-				7BF60D821E24F6AE00716376 /* Info.plist */,
 				7BF60D921E25E8B300716376 /* UserPresenterTest.swift */,
+				7BF60D821E24F6AE00716376 /* Info.plist */,
 			);
 			path = "Hello MVPTests";
 			sourceTree = "<group>";

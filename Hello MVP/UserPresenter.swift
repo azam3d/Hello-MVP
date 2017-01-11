@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UserViewData{
+struct UserViewData {
     let name: String
     let age: String
 }
@@ -28,7 +28,7 @@ class UserPresenter {
         self.userService = userService
     }
     
-    func attachView(view:UserView){
+    func attachView(view: UserView){
         userView = view
     }
     
@@ -36,14 +36,16 @@ class UserPresenter {
         userView = nil
     }
     
-    func getUsers(){
+    func getUsers() {
         self.userView?.startLoading()
+        
         userService.getUsers{ [weak self] users in
             self?.userView?.finishLoading()
+            
             if(users.count == 0){
                 self?.userView?.setEmptyUsers()
-            } else{
-                let mappedUsers = users.map{
+            } else {
+                let mappedUsers = users.map {
                     return UserViewData(name: "\($0.firstName) \($0.lastName)", age: "\($0.age) years")
                 }
                 self?.userView?.setUsers(users: mappedUsers)
