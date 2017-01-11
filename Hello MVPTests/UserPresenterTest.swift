@@ -22,15 +22,15 @@ class UserServiceMock: UserService {
 }
 
 class UserViewMock: NSObject, UserView {
-    var setUsersCalled = false
-    var setEmptyUsersCalled = false
+    var wasUsersCalled = false
+    var wasEmptyUsersCalled = false
     
     func setUsers(users: [UserViewData]) {
-        setUsersCalled = true
+        wasUsersCalled = true
     }
     
     func setEmptyUsers() {
-        setEmptyUsersCalled = true
+        wasEmptyUsersCalled = true
     }
     
     func startLoading() {}
@@ -55,7 +55,7 @@ class UserPresenterTest: XCTestCase {
         userPresenterUnderTest.getUsers()
         
         //verify
-        XCTAssertTrue(userViewMock.setUsersCalled)
+        XCTAssertTrue(userViewMock.wasUsersCalled)
     }
     
     func testShouldSetEmptyIfNoUserAvailable() {
@@ -68,6 +68,6 @@ class UserPresenterTest: XCTestCase {
         userPresenterUnderTest.getUsers()
         
         //verify
-        XCTAssertTrue(userViewMock.setEmptyUsersCalled)
+        XCTAssertTrue(userViewMock.wasEmptyUsersCalled)
     }
 }
